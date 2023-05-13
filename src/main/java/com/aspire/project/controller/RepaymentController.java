@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aspire.project.service.RepaymentServiceInterf;
 import com.aspire.project.Model.Repayment;
+import com.aspire.project.dto.CreateRepaymentRequest;
 import com.aspire.project.dto.RepaymentRequest;
 import com.aspire.project.exception.RepaymentServiceException;
 import com.aspire.project.service.LoanServiceInterf;
@@ -21,23 +22,23 @@ import com.aspire.project.service.LoanServiceInterf;
 public class RepaymentController {
 	@Autowired
 	RepaymentServiceInterf repaymentserviceInterf;
-	@PutMapping("/repay/{loanId}")
-	public ResponseEntity makeRepayment(@PathVariable(value = "loanId") int loanId,@RequestBody RepaymentRequest repayment) {
+	@PutMapping("/repayLoan")
+	public ResponseEntity makeRepayment(@RequestBody RepaymentRequest repayment) {
 		try {
-			repaymentserviceInterf.repayLoan(loanId,repayment);
+			repaymentserviceInterf.repayLoan(repayment);
 		}catch(RepaymentServiceException e){
 			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity("Repayment for loanId = "+ loanId + " success",HttpStatus.OK);
+		return new ResponseEntity("Repayment for loanId = "+ repayment.getLoanId() + " success",HttpStatus.OK);
 	}
-	@PostMapping("/create/{loanId}")
-	public ResponseEntity createRepayment(@PathVariable(value = "loanId") int loanId) {
+	@PostMapping("/create")
+	public ResponseEntity createRepayment(@RequestBody CreateRepaymentRequest createRepayment) {
 		try {
-			repaymentserviceInterf.create(loanId);
+			repaymentserviceInterf.create(createRepayment);
 		}
 		catch(RuntimeException e) {
 			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity("Repayment for loanId = "+ loanId + " created",HttpStatus.OK);
+		return new ResponseEntity("Repayment for loanId = "+ createRepayment.getLoanId() + " created",HttpStatus.OK);
 	}
 }

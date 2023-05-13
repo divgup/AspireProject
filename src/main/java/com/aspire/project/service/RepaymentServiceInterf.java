@@ -6,6 +6,6 @@ import com.aspire.project.dto.RepaymentRequest;
 import com.aspire.project.Model.Loan;
 
 public interface RepaymentServiceInterf {
-	String create(int loanId);
-	String repayLoan(int loanId, RepaymentRequest repayment);
+	String create(CreateRepaymentRequest createRepayment);
+	String repayLoan(RepaymentRequest repayment);
 }

@@ -27,7 +27,7 @@ public class LoanController {
 		return new ResponseEntity(loanserviceInterf.create(createLoan),HttpStatus.CREATED);
 	}
 	@GetMapping("/customer/loans")
-	public ResponseEntity getLoansByCustomerPhone(@RequestParam("Email") String email) {
+	public ResponseEntity getLoansByCustomerPhone(@RequestParam("email") String email) {
 		return new ResponseEntity(loanserviceInterf.getLoansByCustomerEmail(email), HttpStatus.OK);
 	}
 }

@@ -30,11 +30,11 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 	RepaymentRepoInterf repaymentRepoInterf;
 	@Autowired
 	LoanServiceInterf loanServiceInterf;
-	public String create(int loanId) {
-//		System.out.println("repayment loanId = " + repaymentRequest.getLoanId());
-		Optional<Loan> loan= loanServiceInterf.findById(loanId);
+	public String create(CreateRepaymentRequest createRepayment) {
+
+		Optional<Loan> loan= loanServiceInterf.findById(createRepayment.getLoanId());
 		if(!loan.isPresent()) {
-			throw new LoanServiceException("Loan with id doesn't exist");
+			throw new LoanServiceException("Loan with id "+createRepayment.getLoanId()+ " doesn't exist");
 		}
 		double amount = loan.get().getAmount();
 		int loanTerm = loan.get().getLoanTerm();
@@ -50,7 +50,7 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 			repayments.add(repayment);
 		}
 		repaymentRepoInterf.saveAll(repayments);
-		return "Repayment for loan id= "+loanId+ "created";
+		return "Repayment for loan id= "+createRepayment.getLoanId()+ "created";
 	}
 	public static Date addDays(Date date, int days) {
         Calendar c = Calendar.getInstance();
@@ -58,13 +58,14 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
         c.add(Calendar.DATE, days);
         return new Date(c.getTimeInMillis());
     }
-	public String repayLoan(int loanId, RepaymentRequest repayment) {
+	public String repayLoan(RepaymentRequest repayment) {
+		int loanId = repayment.getLoanId();
 		Optional<Loan> loan = loanServiceInterf.findById(loanId);
 		if(!loan.isPresent()) {
-			System.out.println("Loan with id= "+loanId+" doesn't exist !");
+			//System.out.println("Loan with id= "+repayment.getLoanId()+" doesn't exist !");
 			throw new RepaymentServiceException("Loan with id= "+loanId+" doesn't exist !");
 		}
-		Repayment repay = repaymentRepoInterf.findTopByLoanIdEqualsAndPaymentstatusEquals(loanId,Status.PENDING);
+		Repayment repay = repaymentRepoInterf.findTopByLoanIdEqualsAndPaymentstatusEquals(repayment.getLoanId(),Status.PENDING);
 		if(repay==null) {
 			//System.out.println("No need to repay again");
 			throw new RepaymentServiceException("No need to repay again, loan already paid !");
@@ -73,24 +74,24 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 		
 		double loanAmount = repaymentRepoInterf.getLoanAmount(loanId);
 		int repaynum = repay.getRepaymentnumber();
-		double amount_paid = repaymentRepoInterf.getTotalAmountPaid(loanId);
-		double amount_to_be_paid = repaymentRepoInterf.getTotalAmountToBePaid(loanId,repaynum);
-		double amount_remaining = amount_to_be_paid-amount_paid;
-		//System.out.println("amountToBePaid is " +amount_to_be_paid);
-		double total_amount_paid = amount+amount_paid;
+		double amountPaid = repaymentRepoInterf.getTotalAmountPaid(loanId);
+		double amountToBePaid = repaymentRepoInterf.getTotalAmountToBePaid(loanId,repaynum);
+		double amountRemaining = amountToBePaid-amountPaid;
+		//System.out.println("amountToBePaid is " +amountToBePaid);
+		double totalAmountPaid = amount+amountPaid;
 		double validAmount;
-		if(total_amount_paid < loanAmount)
-			validAmount = loanAmount-total_amount_paid;
+		if(totalAmountPaid < loanAmount)
+			validAmount = loanAmount-totalAmountPaid;
 		else {
-			validAmount = loanAmount-amount_paid;
+			validAmount = loanAmount-amountPaid;
 		}
-		System.out.println("paid amount = "+amount_paid);
+		System.out.println("paid amount = "+amountPaid);
 		if(repay!=null) {
-			if(amount >= amount_remaining && total_amount_paid <=loanAmount) {
+			if(amount >= amountRemaining && totalAmountPaid <=loanAmount) {
 				repay.setPaidAmount(amount);
 				repay.setPaymentstatus(Status.PAID);
 				repaymentRepoInterf.save(repay);
-				if(amount+amount_paid==loanAmount) {
+				if(amount+amountPaid==loanAmount) {
 					List<Repayment> remRepayments = repaymentRepoInterf.findAllByLoanIdEqualsAndPaymentstatusEquals(loanId,Status.PENDING);
 					for(int i = 0 ; i < remRepayments.size() ; i++) {
 						Repayment r = remRepayments.get(i);
@@ -102,12 +103,12 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 				}
 				repaymentRepoInterf.save(repay);
 			}
-			else if(amount+amount_paid > loanAmount) {
+			else if(amount+amountPaid > loanAmount) {
 				
 				throw new RepaymentServiceException("Please enter valid repayment. Repayment amount cannot be greater than "+validAmount);
 			}
 			else {
-				throw new RepaymentServiceException("Please repay amount greater than "+ amount_remaining);			
+				throw new RepaymentServiceException("Please repay amount greater than "+ amountRemaining);			
 			}
 		}
 		return "Repayment for loanId = "+loanId + " success";
