@@ -20,6 +20,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 public class Customer {
+	public Customer(String name, String email) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.email = email;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
