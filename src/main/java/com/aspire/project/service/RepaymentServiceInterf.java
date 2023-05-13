@@ -1,5 +1,7 @@
 package com.aspire.project.service;
 import com.aspire.project.Model.Repayment;
+import com.aspire.project.dto.CreateRepaymentRequest;
+
 import com.aspire.project.dto.RepaymentRequest;
 import com.aspire.project.Model.Loan;
 

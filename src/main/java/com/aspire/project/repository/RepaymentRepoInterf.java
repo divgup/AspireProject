@@ -10,13 +10,13 @@ import com.aspire.project.Model.Repayment;
 
 public interface RepaymentRepoInterf extends JpaRepository<Repayment,Integer>{
 	@Query(value="select sum(c.paid_amount) from repayment c where c.loan_id=?1",nativeQuery=true)
-	int getTotalAmountPaid(int loanId);
+	double getTotalAmountPaid(int loanId);
 	
 	@Query(value="select sum(c.actual_amount) from repayment c where c.loan_id=?1 and c.repaymentnumber <=?2",nativeQuery=true)	
-	int getTotalAmountToBePaid(int loanId,int repaynum);
+	double getTotalAmountToBePaid(int loanId,int repaynum);
 	
 	@Query(value="select sum(c.actual_amount) from repayment c where c.loan_id=?1",nativeQuery=true)	
-	int getLoanAmount(int loanId);
+	double getLoanAmount(int loanId);
 	
 	//Repayment findAllByLoanIdEqualsAndPaymentstatusEquals(String status);
 	

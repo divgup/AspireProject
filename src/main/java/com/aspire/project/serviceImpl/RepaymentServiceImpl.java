@@ -20,6 +20,7 @@ import com.aspire.project.Status;
 import com.aspire.project.Model.Loan;
 import com.aspire.project.Model.Repayment;
 import com.aspire.project.dto.RepaymentRequest;
+import com.aspire.project.dto.CreateRepaymentRequest;
 import com.aspire.project.exception.LoanServiceException;
 import com.aspire.project.exception.RepaymentServiceException;
 
@@ -30,11 +31,12 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 	@Autowired
 	LoanServiceInterf loanServiceInterf;
 	public String create(int loanId) {
+//		System.out.println("repayment loanId = " + repaymentRequest.getLoanId());
 		Optional<Loan> loan= loanServiceInterf.findById(loanId);
-		if(loan.get()==null) {
+		if(!loan.isPresent()) {
 			throw new LoanServiceException("Loan with id doesn't exist");
 		}
-		int amount = loan.get().getAmount();
+		double amount = loan.get().getAmount();
 		int loanTerm = loan.get().getLoanTerm();
 		Date todaysDate = new Date(new java.util.Date().getTime());
 		Date futureDate=todaysDate;
@@ -57,21 +59,31 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
         return new Date(c.getTimeInMillis());
     }
 	public String repayLoan(int loanId, RepaymentRequest repayment) {
+		Optional<Loan> loan = loanServiceInterf.findById(loanId);
+		if(!loan.isPresent()) {
+			System.out.println("Loan with id= "+loanId+" doesn't exist !");
+			throw new RepaymentServiceException("Loan with id= "+loanId+" doesn't exist !");
+		}
 		Repayment repay = repaymentRepoInterf.findTopByLoanIdEqualsAndPaymentstatusEquals(loanId,Status.PENDING);
 		if(repay==null) {
-			System.out.println("No need to repay again");
+			//System.out.println("No need to repay again");
 			throw new RepaymentServiceException("No need to repay again, loan already paid !");
 		}
-		int amount = repayment.getAmount();
-		Optional<Loan> loan = loanServiceInterf.findById(loanId);
-		int loanAmount = repaymentRepoInterf.getLoanAmount(loanId);
+		double amount = repayment.getAmount();
+		
+		double loanAmount = repaymentRepoInterf.getLoanAmount(loanId);
 		int repaynum = repay.getRepaymentnumber();
-		int amount_paid = repaymentRepoInterf.getTotalAmountPaid(loanId);
-		int amount_to_be_paid = repaymentRepoInterf.getTotalAmountToBePaid(loanId,repaynum);
-		int amount_remaining = amount_to_be_paid-amount_paid;
+		double amount_paid = repaymentRepoInterf.getTotalAmountPaid(loanId);
+		double amount_to_be_paid = repaymentRepoInterf.getTotalAmountToBePaid(loanId,repaynum);
+		double amount_remaining = amount_to_be_paid-amount_paid;
 		//System.out.println("amountToBePaid is " +amount_to_be_paid);
-		int total_amount_paid = amount+amount_paid;
-		int validAmount = loanAmount-total_amount_paid;
+		double total_amount_paid = amount+amount_paid;
+		double validAmount;
+		if(total_amount_paid < loanAmount)
+			validAmount = loanAmount-total_amount_paid;
+		else {
+			validAmount = loanAmount-amount_paid;
+		}
 		System.out.println("paid amount = "+amount_paid);
 		if(repay!=null) {
 			if(amount >= amount_remaining && total_amount_paid <=loanAmount) {
@@ -98,8 +110,8 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 				throw new RepaymentServiceException("Please repay amount greater than "+ amount_remaining);			
 			}
 		}
+		return "Repayment for loanId = "+loanId + " success";
 		
-		return "Repayment for loan id= "+loanId+ " successful";
 		
 	}
 

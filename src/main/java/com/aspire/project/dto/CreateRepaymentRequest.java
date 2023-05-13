@@ -1,4 +1,5 @@
 package com.aspire.project.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RepaymentRequest {
-	private double amount;
+public class CreateRepaymentRequest {
+	private int LoanId;
 }

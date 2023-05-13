@@ -34,7 +34,7 @@ public class Loan {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull(message = "Loan Amount is mandatory.! ")
-	private int amount;
+	private double amount;
 	@NotNull(message = "Loan term is mandatory.! ")
 	private int loanTerm;
 	@Enumerated(value = EnumType.STRING)

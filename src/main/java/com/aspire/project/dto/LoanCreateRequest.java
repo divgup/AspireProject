@@ -16,7 +16,7 @@ public class LoanCreateRequest {
 	
 	private int loanTerm;
 	
-	private int amount; 
+	private double amount; 
 	private Customer customer;
 	public Loan toLoan() {
 		return Loan.builder().amount(amount).loanTerm(loanTerm).customer(customer).build();

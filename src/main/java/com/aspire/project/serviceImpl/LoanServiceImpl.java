@@ -29,7 +29,7 @@ public class LoanServiceImpl implements LoanServiceInterf{
 //		return new ResponseEntity("Loan With this ID Already Exist!",HttpStatus.BAD_REQUEST);
 		Loan loan = loanrequest.toLoan();
 		int tenure = loan.getLoanTerm();
-		int amt = loan.getAmount();
+		double amt = loan.getAmount();
 		Customer customer = loan.getCustomer();		
 		//System.out.println("email is "+customer.getEmail());
 		Customer CustomerFromDb = customerServiceInterf.findByEmail(customer.getEmail());
