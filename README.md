@@ -21,7 +21,7 @@ For building and running the application you need:
 mvn package
 ```
 
-Run jar file created using 
+Run jar file created inside target folder using 
 
 ```code
 java -jar <jar-filename>
