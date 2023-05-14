@@ -13,7 +13,7 @@ For building and running the application you need:
 * [Spring data JPA (Hibernate)](https://hibernate.org/) Used to reduce the time of writing hardcoded sql queries and instead allows to write much more readable and scalable code
 * [Project Lombok](https://projectlombok.org/) Reduces the time  of writing java boiler plate code.
 
-# Steps to run application
+## Steps to run application
 * Clone the project.
 * Navigate to project directory. 
 * Set the MySQL username and password in /src/main/resources/application.properties file
@@ -38,6 +38,13 @@ java -jar <jar-filename>
 ```
 
 Server will start on port 8082
+
+## Testing the Application
+
+Exectute the below command inside project directory
+```code
+mvn test
+```
 
 # Relevant API endpoints
 #### /loan/request
