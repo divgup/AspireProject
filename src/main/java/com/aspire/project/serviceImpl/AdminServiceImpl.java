@@ -16,6 +16,10 @@ public class AdminServiceImpl implements AdminServiceInterf {
 	@Autowired
 	LoanServiceInterf loanServiceInterf;
 	@Override
+/*
+ * 	* Function for approving pending loan and updating Loan database.
+*/
+	
 	public Loan approveLoan(LoanApprovalRequest loanApprovalRequest) {
 		// TODO Auto-generated method stub
 		Optional<Loan> loan = loanServiceInterf.findById(loanApprovalRequest.getLoanId());
