@@ -14,14 +14,16 @@ For building and running the application you need:
 * [Project Lombok](https://projectlombok.org/) Reduces the time  of writing java boiler plate code.
 
 # Steps to run application
-1. Clone the project.
-2. Navigate to project directory.
-3. Run command 
+* Clone the project.
+* Navigate to project directory.
+* Run command 
 
 
 ```code
 mvn package
 ```
+
+
 ```code
 mvn spring-boot:run
 ```
