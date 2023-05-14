@@ -22,15 +22,7 @@ import com.aspire.project.service.LoanServiceInterf;
 public class RepaymentController {
 	@Autowired
 	RepaymentServiceInterf repaymentserviceInterf;
-	@PutMapping("/pay")
-	public ResponseEntity makeRepayment(@RequestBody RepaymentRequest repayment) {
-		try {
-			repaymentserviceInterf.repayLoan(repayment);
-		}catch(RepaymentServiceException e){
-			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity("Repayment for loanId = "+ repayment.getLoanId() + " success",HttpStatus.OK);
-	}
+
 	@PostMapping("/create")
 	public ResponseEntity createRepayment(@RequestBody CreateRepaymentRequest createRepayment) {
 		try {
@@ -40,5 +32,14 @@ public class RepaymentController {
 			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity("Repayment for loanId = "+ createRepayment.getLoanId() + " created",HttpStatus.OK);
+	}
+	@PutMapping("/pay")
+	public ResponseEntity makeRepayment(@RequestBody RepaymentRequest repayment) {
+		try {
+			repaymentserviceInterf.repayLoan(repayment);
+		}catch(RepaymentServiceException e){
+			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity("Repayment for loanId = "+ repayment.getLoanId() + " success",HttpStatus.OK);
 	}
 }
