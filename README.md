@@ -40,8 +40,8 @@ Sample POST Request Body
    "amount":20,
    "loanTerm":4,
    "customer":{
-       "name":"divanshu",
-       "email":"divanshu@gmail.com"
+       "name":"abc",
+       "email":"abc@gmail.com"
    }
 }
 
@@ -103,7 +103,30 @@ Sample GET request
 ```http
 GET http://localhost:8082/loan/customer/all?email=abc@gmail.com
 ```
-
+Sample response
+```json
+{
+       "id": 1,
+       "amount": 20,
+       "loanTerm": 4,
+       "loanStatus": "APPROVED",
+       "customer": {
+           "id": 1,
+           "name": "divanshu",
+           "email": "divanshu@gmail.com"
+       },
+       "createdOn": "2023-05-13",
+       "listofRepayments": [
+           {
+               "id": 1,
+               "repaymentnumber": 1,
+               "actualAmount": 5.0,
+               "paidAmount": 0.0,
+               "paymentstatus": "PENDING",
+           }
+      ]
+}
+```
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
