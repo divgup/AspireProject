@@ -15,7 +15,8 @@ For building and running the application you need:
 
 # Steps to run application
 * Clone the project.
-* Navigate to project directory.
+* Navigate to project directory. 
+* Set the MySQL username and password in /src/main/resources/application.properties file
 * Run command 
 
 
