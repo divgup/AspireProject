@@ -32,7 +32,7 @@ java -jar <jar-filename>
 #### /loan/request
 The /loan/request endpoint allows users to submit loan applications.
 
-Sample POST Request
+Sample POST Request Body
 ```json
 {
    "amount":20,
@@ -54,8 +54,8 @@ Sample Response
    "loanStatus": "PENDING",
    "customer": {
        "id": 1,
-       "name": "divanshu",
-       "email": "divanshu@gmail.com"
+       "name": "abc",
+       "email": "abc@gmail.com"
    },
    "createdOn": "2023-05-13",
    "listofRepayments": null
@@ -67,7 +67,7 @@ Sample Response
 #### /repayment/create
 The /repayment/create endpoint allows users to create repayment requests for a given loan.
 
-Sample POST request
+Sample POST request Body
 ```json
 {
    "loanId":1
@@ -75,5 +75,51 @@ Sample POST request
 ```
 
 Sample Response
+```
 Repayment for loan id=1 created
+```
+
+#### /admin/approve
+The  /admin/approve endpoint allows admin to approve loans with a given id. 
+
+Sample PUT request Body
+```json
+{
+   "loanId":1
+}
+```
+
+Sample Response
+```
+Loan with id = 1 approved
+```
+
+#### /loan/customer/all
+The /loan/customer/all endpoint allows customers to view their own loan.
+
+Sample GET request
+```http
+GET http://localhost:8082/loan/customer/all?email=abc@gmail.com
+```
+
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `email` | `string` | **Required**. customer email Id |
+
+#### /repayment/pay
+The /repayment/pay endpoint allows them to make an installment towards repaying their loan.
+
+Sample POST request Body
+```json
+{
+    "loanId":1,
+    "amount":1
+}
+```
+
+Sample Response
+```
+Repayment for loan id = 1 success.
+```
 
