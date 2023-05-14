@@ -30,6 +30,13 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 	RepaymentRepoInterf repaymentRepoInterf;
 	@Autowired
 	LoanServiceInterf loanServiceInterf;
+
+/*
+	 * Function to generate repayments for a given loan.
+	 * Checks if loan with given Id exists. Throw exception if it doesn't.
+	 * Schedule n weekly repayments with PENDING state and paid amount as 0. n is tenure of loan. 
+*/
+	
 	public String create(CreateRepaymentRequest createRepayment) {
 
 		Optional<Loan> loan= loanServiceInterf.findById(createRepayment.getLoanId());
@@ -59,7 +66,12 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
         c.add(Calendar.DATE, days);
         return new Date(c.getTimeInMillis());
     }
-	
+/*
+   * Function to Repay loan given amount and loan Id.
+   * Checks if loan with given Id exists in database. Throw exception if it doesn't.
+   * Finds the amount to be paid on ith repayment. Throw exception if amount is less than scheduled payment.
+   * Change the status of ith repayment to PAID. If all the repayments are PAID, update the Loan Status from APPROVED to PAID.
+*/
 	public String repayLoan(RepaymentRequest repayment) {
 		int loanId = repayment.getLoanId();
 		Optional<Loan> loan = loanServiceInterf.findById(loanId);
