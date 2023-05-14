@@ -32,7 +32,7 @@ Server will start on port 8082
 
 # Relevant API endpoints
 #### /loan/request
-The /loan/request endpoint allows users to submit loan applications.
+This endpoint allows users to submit loan applications.
 
 Sample POST Request Body
 ```json
@@ -67,7 +67,7 @@ Sample Response
 
 
 #### /repayment/create
-The /repayment/create endpoint allows users to create repayment requests for a given loan.
+This endpoint allows users to create repayment requests for a given loan.
 
 Sample POST request Body
 ```json
@@ -82,7 +82,7 @@ Repayment for loan id=1 created
 ```
 
 #### /admin/approve
-The  /admin/approve endpoint allows admin to approve loans with a given id. 
+This endpoint allows admin to approve loans with a given id. 
 
 Sample PUT request Body
 ```json
@@ -97,7 +97,7 @@ Loan with id = 1 approved
 ```
 
 #### /loan/customer/all
-The /loan/customer/all endpoint allows customers to view their own loan.
+This endpoint allows customers to view their own loan.
 
 Sample GET request
 ```http
@@ -133,7 +133,7 @@ Sample response
 | `email` | `string` | **Required**. customer email Id |
 
 #### /repayment/pay
-The /repayment/pay endpoint allows them to make an installment towards repaying their loan.
+This endpoint allows them to make an installment towards repaying their loan.
 
 Sample POST request Body
 ```json
