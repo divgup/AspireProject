@@ -28,6 +28,8 @@ java -jar <jar-filename>
 
 ```
 
+Server will start on port 8082
+
 # Relevant API endpoints
 #### /loan/request
 The /loan/request endpoint allows users to submit loan applications.
