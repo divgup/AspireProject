@@ -8,7 +8,7 @@ It is a SpringBoot app that allows authenticated users to go through a loan appl
 
 
 ```code
-mvn package.
+mvn package
 ```
 
 Run jar file created using 
