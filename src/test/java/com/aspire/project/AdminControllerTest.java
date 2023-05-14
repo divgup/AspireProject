@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.aspire.project.Model.Customer;
 import com.aspire.project.Model.Loan;
 
+
 public class AdminControllerTest extends ProjectApplicationTests{
 	
 	@Autowired
@@ -27,6 +28,7 @@ public class AdminControllerTest extends ProjectApplicationTests{
 	public void setup() {
 		super.setUp();
 	}
+	//JUnit test for checking approval of loan request given the loan Id
 	@Test
 	  public void approveLoan() throws Exception {
 	      String uri = "/admin/approve";

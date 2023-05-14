@@ -129,6 +129,7 @@ public class LoanControllerTest extends ProjectApplicationTests{
 		super.setUp();
 	}
 	
+	//JUnit test for checking creation of a new loan given loan request body
 	@Test
 	  public void addLoan() throws Exception {
 	      String uri = "/loan/request";
@@ -146,6 +147,8 @@ public class LoanControllerTest extends ProjectApplicationTests{
 	      int status = mvcResult.getResponse().getStatus();
 	      assertEquals(201, status);
 	}
+	
+	//JUnit test for checking loan details for given customer using his email are retreived successfully
 	@Test
 	  public void getCustomerLoans() throws Exception {
 	      String uri = "/loan/customer/all";

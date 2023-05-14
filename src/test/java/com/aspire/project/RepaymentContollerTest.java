@@ -29,6 +29,7 @@ public class RepaymentContollerTest extends ProjectApplicationTests{
 	public void setup() {
 		super.setUp();
 	}
+	//JUnit test for checking generated repayment for given loan Id
 	@Test
 	public void createRepayment() throws Exception {
 	      String uri = "/repayment/create";
@@ -45,6 +46,7 @@ public class RepaymentContollerTest extends ProjectApplicationTests{
 	      assertEquals(200, status);
 	}
 	
+	//JUnit test for checking nth repayment is successful or not for given loan Id
 	@Test
 	public void repayLoan() throws Exception {
 	      String uri = "/repayment/pay";
