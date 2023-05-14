@@ -31,3 +31,16 @@ java -jar <jar-filename>
 # Relevant API endpoints
 #### /loan/request
 The /loan/request endpoint allows users to submit loan applications.
+
+Sample POST Request
+```json
+{
+   "amount":20,
+   "loanTerm":4,
+   "customer":{
+       "name":"divanshu",
+       "email":"divanshu@gmail.com"
+   }
+}
+
+```
