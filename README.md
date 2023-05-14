@@ -22,6 +22,10 @@ For building and running the application you need:
 ```code
 mvn package
 ```
+```code
+mvn spring-boot:run
+```
+# OR
 
 Run jar file created inside target folder using 
 
