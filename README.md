@@ -139,7 +139,7 @@ Sample POST request Body
 ```json
 {
     "loanId":1,
-    "amount":1
+    "amount":20
 }
 ```
 
