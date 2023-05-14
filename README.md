@@ -7,7 +7,7 @@ For building and running the application you need:
 * [Maven](https://maven.apache.org/) used as a dependency management tool.
 * [Spring Boot](https://spring.io/projects/spring-boot) used to build hassle free web applications and writing REST APIs.
 * [Spring data JPA (Hibernate)](https://hibernate.org/) Used to reduce the time of writing hardcoded sql queries and instead allows to write much more readable and scalable code 
-* [MySQL](https://www.mysql.com/) used as a Java persistence store
+* [MySQL](https://www.mysql.com/) used as a Java persistence store. I used Version 8.0.32.
 * [Project Lombok](https://projectlombok.org/) Reduces the time  of writing java boiler plate code.
 
 
