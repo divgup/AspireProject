@@ -3,4 +3,11 @@ It is a SpringBoot app that allows authenticated users to go through a loan appl
 
 # Steps to run application
 1. Clone the project.
-2. cd 
+2. cd Project directory.
+3. Run command 
+
+
+```code
+mvn package.
+
+```
