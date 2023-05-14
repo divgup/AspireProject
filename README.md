@@ -66,3 +66,14 @@ Sample Response
 
 #### /repayment/create
 The /repayment/create endpoint allows users to create repayment requests for a given loan.
+
+Sample POST request
+```json
+{
+   "loanId":1
+}
+```
+
+Sample Response
+Repayment for loan id=1 created
+
