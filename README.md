@@ -112,8 +112,8 @@ Sample response
        "loanStatus": "APPROVED",
        "customer": {
            "id": 1,
-           "name": "divanshu",
-           "email": "divanshu@gmail.com"
+           "name": "abc",
+           "email": "abc@gmail.com"
        },
        "createdOn": "2023-05-13",
        "listofRepayments": [
