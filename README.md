@@ -13,7 +13,7 @@ For building and running the application you need:
 
 # Steps to run application
 1. Clone the project.
-2. cd Project directory.
+2. Navigate to project directory.
 3. Run command 
 
 
