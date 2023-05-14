@@ -62,5 +62,7 @@ Sample Response
 }
 ```
 
+
+
 #### /repayment/create
 The /repayment/create endpoint allows users to create repayment requests for a given loan.
