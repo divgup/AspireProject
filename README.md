@@ -25,7 +25,7 @@ mvn package
 ```code
 mvn spring-boot:run
 ```
-# OR
+##### OR
 
 Run jar file created inside target folder using 
 
