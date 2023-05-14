@@ -44,3 +44,20 @@ Sample POST Request
 }
 
 ```
+
+Sample Response
+```json
+{
+   "id": 1,
+   "amount": 20,
+   "loanTerm": 4,
+   "loanStatus": "PENDING",
+   "customer": {
+       "id": 1,
+       "name": "divanshu",
+       "email": "divanshu@gmail.com"
+   },
+   "createdOn": "2023-05-13",
+   "listofRepayments": null
+}
+```
