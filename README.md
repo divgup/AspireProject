@@ -41,7 +41,7 @@ Server will start on port 8082
 
 ## Testing the Application
 
-Exectute the below command inside project directory
+Exectute the below command inside project directory to verify all the unit tests.
 ```code
 mvn test
 ```
