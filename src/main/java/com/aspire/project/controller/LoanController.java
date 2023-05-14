@@ -22,12 +22,12 @@ import com.aspire.project.service.LoanServiceInterf;
 public class LoanController {
 	@Autowired
 	LoanServiceInterf loanserviceInterf;
-	@PostMapping("/request")
+	@PostMapping("/loan/request")
 	public ResponseEntity requestLoan(@RequestBody @Valid LoanCreateRequest createLoan) {
 		return new ResponseEntity(loanserviceInterf.create(createLoan),HttpStatus.CREATED);
 	}
-	@GetMapping("/customer/loans")
-	public ResponseEntity getLoansByCustomerPhone(@RequestParam("email") String email) {
+	@GetMapping("/loan/customer/all")
+	public ResponseEntity getLoansByCustomerEmail(@RequestParam("email") String email) {
 		return new ResponseEntity(loanserviceInterf.getLoansByCustomerEmail(email), HttpStatus.OK);
 	}
 }

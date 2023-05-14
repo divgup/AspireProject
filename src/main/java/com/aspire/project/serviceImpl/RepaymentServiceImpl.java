@@ -52,46 +52,59 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 		repaymentRepoInterf.saveAll(repayments);
 		return "Repayment for loan id= "+createRepayment.getLoanId()+ "created";
 	}
+	
 	public static Date addDays(Date date, int days) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.DATE, days);
         return new Date(c.getTimeInMillis());
     }
+	
 	public String repayLoan(RepaymentRequest repayment) {
 		int loanId = repayment.getLoanId();
 		Optional<Loan> loan = loanServiceInterf.findById(loanId);
 		if(!loan.isPresent()) {
-			//System.out.println("Loan with id= "+repayment.getLoanId()+" doesn't exist !");
+			
 			throw new RepaymentServiceException("Loan with id= "+loanId+" doesn't exist !");
+		
 		}
+		
+		// Find topmost scheduled pending repayment for given the loan id.
+		
 		Repayment repay = repaymentRepoInterf.findTopByLoanIdEqualsAndPaymentstatusEquals(repayment.getLoanId(),Status.PENDING);
 		if(repay==null) {
-			//System.out.println("No need to repay again");
-			throw new RepaymentServiceException("No need to repay again, loan already paid !");
+			
+			throw new RepaymentServiceException("Loan already paid !");
+		
 		}
-		double amount = repayment.getAmount();
+		double currentAmount = repayment.getAmount();
 		
 		double loanAmount = repaymentRepoInterf.getLoanAmount(loanId);
+		
 		int repaynum = repay.getRepaymentnumber();
-		double amountPaid = repaymentRepoInterf.getTotalAmountPaid(loanId);
+		
+		double amountPaidSoFar = repaymentRepoInterf.getTotalAmountPaid(loanId);
+		
 		double amountToBePaid = repaymentRepoInterf.getTotalAmountToBePaid(loanId,repaynum);
-		double amountRemaining = amountToBePaid-amountPaid;
-		//System.out.println("amountToBePaid is " +amountToBePaid);
-		double totalAmountPaid = amount+amountPaid;
+		
+		double amountRemaining = amountToBePaid-amountPaidSoFar;
+
+		double totalAmountPaid = currentAmount+amountPaidSoFar;
 		double validAmount;
+		
 		if(totalAmountPaid < loanAmount)
 			validAmount = loanAmount-totalAmountPaid;
-		else {
-			validAmount = loanAmount-amountPaid;
+		else 
+		{
+			validAmount = loanAmount-amountPaidSoFar;
 		}
-		System.out.println("paid amount = "+amountPaid);
+
 		if(repay!=null) {
-			if(amount >= amountRemaining && totalAmountPaid <=loanAmount) {
-				repay.setPaidAmount(amount);
+			if(currentAmount >= amountRemaining && totalAmountPaid <=loanAmount) {
+				repay.setPaidAmount(currentAmount);
 				repay.setPaymentstatus(Status.PAID);
 				repaymentRepoInterf.save(repay);
-				if(amount+amountPaid==loanAmount) {
+				if(totalAmountPaid == loanAmount) {
 					List<Repayment> remRepayments = repaymentRepoInterf.findAllByLoanIdEqualsAndPaymentstatusEquals(loanId,Status.PENDING);
 					for(int i = 0 ; i < remRepayments.size() ; i++) {
 						Repayment r = remRepayments.get(i);
@@ -103,7 +116,7 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 				}
 				repaymentRepoInterf.save(repay);
 			}
-			else if(amount+amountPaid > loanAmount) {
+			else if(totalAmountPaid > loanAmount) {
 				
 				throw new RepaymentServiceException("Please enter valid repayment. Repayment amount cannot be greater than "+validAmount);
 			}

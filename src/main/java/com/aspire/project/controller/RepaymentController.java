@@ -22,7 +22,7 @@ import com.aspire.project.service.LoanServiceInterf;
 public class RepaymentController {
 	@Autowired
 	RepaymentServiceInterf repaymentserviceInterf;
-	@PutMapping("/repayLoan")
+	@PutMapping("/pay")
 	public ResponseEntity makeRepayment(@RequestBody RepaymentRequest repayment) {
 		try {
 			repaymentserviceInterf.repayLoan(repayment);
