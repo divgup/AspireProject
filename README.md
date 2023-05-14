@@ -38,7 +38,7 @@ Sample POST Request Body
 ```json
 {
    "amount":20,
-   "loanTerm":4,
+   "loanTerm":1,
    "customer":{
        "name":"abc",
        "email":"abc@gmail.com"
@@ -52,7 +52,7 @@ Sample Response
 {
    "id": 1,
    "amount": 20,
-   "loanTerm": 4,
+   "loanTerm": 1,
    "loanStatus": "PENDING",
    "customer": {
        "id": 1,
@@ -108,7 +108,7 @@ Sample response
 {
        "id": 1,
        "amount": 20,
-       "loanTerm": 4,
+       "loanTerm": 1,
        "loanStatus": "APPROVED",
        "customer": {
            "id": 1,
