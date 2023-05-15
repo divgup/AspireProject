@@ -43,7 +43,7 @@ public class RepaymentContollerTest extends ProjectApplicationTests{
 	      int status = mvcResult.getResponse().getStatus();
 	      System.out.println("Prior response "+mvcResult.getResponse().getContentAsString());
 	      
-	      assertEquals(200, status);
+	      assertEquals(201, status);
 	}
 	
 	//JUnit test for checking nth repayment is successful or not for given loan Id

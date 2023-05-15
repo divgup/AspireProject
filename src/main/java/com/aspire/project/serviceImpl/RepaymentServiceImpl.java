@@ -66,6 +66,9 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
         c.add(Calendar.DATE, days);
         return new Date(c.getTimeInMillis());
     }
+	public List<Repayment> saveAll(List<Repayment> repayments){
+		return repaymentRepoInterf.saveAll(repayments);
+	}
 /*
    * Function to Repay loan given amount and loan Id.
    * Checks if loan with given Id exists in database. Throw exception if it doesn't.
@@ -136,7 +139,7 @@ public class RepaymentServiceImpl implements RepaymentServiceInterf {
 				throw new RepaymentServiceException("Please repay amount greater than "+ amountRemaining);			
 			}
 		}
-		return "Repayment for loanId = "+loanId + " success";
+		return "Repayment "+repaynum +" for loanId =" + loanId + " success";
 		
 		
 	}

@@ -21,6 +21,9 @@ public class AdminController {
 	public ResponseEntity approveLoan(@RequestBody LoanApprovalRequest loanApprovalRequest) {
 		
 		Loan loan = adminServiceInterf.approveLoan(loanApprovalRequest);
+		if(loan==null)
+			return new ResponseEntity("Loan with id = "+ loanApprovalRequest.getLoanId() + " doesn't exist",HttpStatus.BAD_REQUEST);
+		
 		return new ResponseEntity("Loan with id = "+ loanApprovalRequest.getLoanId() + " approved",HttpStatus.OK);
 	}
 }

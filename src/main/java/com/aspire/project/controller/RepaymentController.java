@@ -31,7 +31,7 @@ public class RepaymentController {
 		catch(RuntimeException e) {
 			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity("Repayment for loanId = "+ createRepayment.getLoanId() + " created",HttpStatus.OK);
+		return new ResponseEntity("Repayment for loanId = "+ createRepayment.getLoanId() + " created",HttpStatus.CREATED);
 	}
 	@PutMapping("/pay")
 	public ResponseEntity makeRepayment(@RequestBody RepaymentRequest repayment) {

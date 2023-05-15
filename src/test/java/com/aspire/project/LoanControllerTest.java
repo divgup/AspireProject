@@ -104,6 +104,7 @@
 package com.aspire.project;
 import static org.junit.Assert.assertEquals;
 import com.aspire.project.Model.Loan;
+import com.aspire.project.dto.LoanApprovalRequest;
 import com.aspire.project.Model.Customer;
 import org.springframework.http.MediaType;
 
@@ -143,7 +144,7 @@ public class LoanControllerTest extends ProjectApplicationTests{
 	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
 	              .contentType(MediaType.APPLICATION_JSON_VALUE)
 	              .content(inputJson)).andReturn();
-	
+	      //System.out.println("mvcResult = "+ mvcResult.getResponse().getContentAsString());
 	      int status = mvcResult.getResponse().getStatus();
 	      assertEquals(201, status);
 	}
@@ -156,10 +157,23 @@ public class LoanControllerTest extends ProjectApplicationTests{
 	              .contentType(MediaType.APPLICATION_JSON_VALUE)
 	              .param("email", "mntr123@gmail.com")
 	              ).andReturn();
+	      //System.out.println("mvcResult = "+ mvcResult.getResponse().getContentAsString());
+
+	      int status = mvcResult.getResponse().getStatus();
+	      assertEquals(200, status);
+	}
+	@Test
+	  public void approveLoan() throws Exception {
+	      String uri = "/admin/approve";
+	      LoanApprovalRequest loanApprovalReq = new LoanApprovalRequest();
+	      loanApprovalReq.setLoanId(1);
+	      String inputJson = super.mapToJson(loanApprovalReq);
+	      MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
+	              .contentType(MediaType.APPLICATION_JSON_VALUE)
+	              .content(inputJson)).andReturn();
 	
 	      int status = mvcResult.getResponse().getStatus();
 	      assertEquals(200, status);
 	}
-
 
 }

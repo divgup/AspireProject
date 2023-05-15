@@ -23,7 +23,9 @@ public class AdminServiceImpl implements AdminServiceInterf {
 	public Loan approveLoan(LoanApprovalRequest loanApprovalRequest) {
 		// TODO Auto-generated method stub
 		Optional<Loan> loan = loanServiceInterf.findById(loanApprovalRequest.getLoanId());
+		
 		if(loan.isPresent()) {
+			System.out.println("came here");
 			loan.get().setLoanStatus(Status.APPROVED);
 			//loan.setLoanStatus(Status.APPROVED);
 			return loanServiceInterf.save(loan.get());
